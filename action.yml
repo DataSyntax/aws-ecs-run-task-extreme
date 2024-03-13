@@ -1,0 +1,32 @@
+name: 'Run one-off task on ECS (with container overrides)'
+description: 'Run a task on ECS (optionally providing overrides) and waits for ECS task to finish.'
+branding:
+  icon: 'activity'
+  color: 'white'
+inputs:
+  cluster:
+    description: "The name of the ECS service's cluster.  Will default to the 'default' cluster"
+    required: false
+    default: 'default'
+  task-definition:
+    description: 'The name of the task-definition'
+    required: true
+  launch-type:
+    description: 'Launch type: EC2 or FARGATE'
+    required: false
+    default: 'EC2'
+  override-container:
+    description: 'The container names to override'
+    required: false
+  override-branch:
+    description: 'Branch name to oveeride'
+    required: false
+
+outputs:
+  task-arn:
+    description: 'The ARN for the task that finished running'
+  status:
+    description: 'The status of the task, success for sucesssful tasks.'
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
